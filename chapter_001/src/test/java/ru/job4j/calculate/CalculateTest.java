@@ -5,22 +5,22 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
-* Test.
-*
-* @author Petr Arsentev (mailto:parsentev@yandex.ru)
-* @version $Id$
-* @since 0.1
-*/
+ * Test.
+ *
+ * @author Petr Arsentev (mailto:parsentev@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class CalculateTest {
-/**
-* Test echo.
-*/ @Test
-public void whenTakeNameThenTreeEchoPlusName() {
-    String input = "Petr Arsentev";
-    String expect = "Echo, echo, echo : Petr Arsentev"; 
-    Calculate calc = new Calculate();
-    String result = calc.echo(input);
-    assertThat(result, is(expect));
-}
- 
+    /**
+     * Test echo.
+     */ @Test
+    public void whenTakeNameThenTreeEchoPlusName() {
+        String input = "Petr Arsentev";
+        String expect = "Echo, echo, echo : Petr Arsentev";
+        Calculate calc = new Calculate();
+        String result = calc.echo(input);
+        assertThat(result, is(expect));
+    }
+
 }
