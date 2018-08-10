@@ -23,15 +23,9 @@ public class Triangle {
      * @param bc расстояние между точками b c
      * @return Перимент.
      */
-
     public double period(double ab, double ac, double bc) {
-
         return (ab + ac + bc) / 2;
-
-
-        //return a.distanceTo(b) + a.distanceTo(c) + b.distanceTo(c);
     }
-
     /**
      * Метод должен вычислить площадь треугольника.
      *
@@ -44,15 +38,12 @@ public class Triangle {
         double bc = this.b.distanceTo(this.c);
         double p = this.period(ab, ac, bc);
         if (this.exist(ab, ac, bc)) {
-            rs1 = -1;
-        } else {
             rs1 = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
+        } else {
+            rs1 = -1;
         }
         return rs1;
     }
-
-
-
     /**
      * Метод проверяет можно ли построить треугольник с такими длинами сторон.
      * <p>
@@ -64,14 +55,12 @@ public class Triangle {
      * @return
      */
     private boolean exist(double ab, double ac, double bc) {
-        if ((ac > ab + bc) | (bc > ab + ac) | (ab > bc + ac)) {
-            return false;
-        }
-        return false;
+        boolean triangleExist = false;
+    if ((ac < ab + bc) && (bc < ab + ac) && (ab < bc + ac)) {
+        triangleExist = true;
     }
-
-
+    return triangleExist;
+    }
 }
-
 
 

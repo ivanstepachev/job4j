@@ -17,7 +17,6 @@ public class TriangleTest {
         double result = triangle.area();
         // Задаем ожидаемый результат.
         double expected = 2D;
-        //Проверяем результат и ожидаемое значение.
         assertThat(result, closeTo(expected, 0.1));
     }
 }
