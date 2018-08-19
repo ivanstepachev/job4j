@@ -7,18 +7,32 @@ package ru.job4j.calculate;
  */
 public class UnionArray {
 
-    /** Объединяет два массив друг за другом в один массив.
-     * @param first первый массив
+    /**
+     * Объединяет два отсортированных массив друг за другом в один отсортированный массив.
+     *
+     * @param first  первый массив
      * @param second второй массив.
      * @return Объединенный массив.
      */
-    public int[] integrateArrays(int[] first, int[] second) {
-        int[] merge = new int[first.length + second.length];
-        for (int index = 0; index != second.length; index++) {
-            merge[index] = first[index];
-            merge[merge.length - 1 - index] = second[second.length - 1 - index];
+    public int[] merge(int[] first, int[] second) {
+        int i, j;
+        int k = 0;
+        int[] common = new int[first.length + second.length];
+        for (i = 0, j = 0; i < first.length && j < second.length; i++, j++) {
+            if (first[i] > second[j]) {
+                common[k++] = second[j];
+                i--;
+            } else {
+                common[k++] = first[i];
+                j--;
+            }
         }
-        return merge;
+        for ( ; i < first.length; i++) {
+            common[k++] = first[i];
+        }
+        for ( ; j < second.length; j++) {
+            common[k++] = second[j];
+        } return common;
     }
 }
 
