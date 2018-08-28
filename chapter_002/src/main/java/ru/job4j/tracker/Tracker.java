@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -57,11 +58,7 @@ public class Tracker {
      * @return все созданные заяки, без null элементов.
      */
     public Item[] findAll() {
-    Item[] result = new Item[this.position];
-    for (int index = 0; index < this.position; index++) {
-        result[index] = this.items[index];
-    }
-    return result;
+    return Arrays.copyOf(this.items, this.position);
     }
 
     /**
@@ -70,14 +67,14 @@ public class Tracker {
      * @return заявку, найденную по имени
      */
     public Item[] findByName(String key) {
-        Item[] result = new Item[1];
-        for (int index = 0; index < this.position; index++) {
-            if (this.items[index].getName() != null && this.items[index].getName().equals(key)) {
-                result[0] = this.items[index];
-                break;
-            }
+        int counter = 0;
+        Item[] result = new Item[position];
+        for (int index = 0; index < position; index++) {
+            if (items[index].getName() != null && items[index].getName().equals(key)) {
+                result[counter++] = items[index];
+              }
         }
-        return result;
+        return Arrays.copyOf(result, counter);
     }
 
     /**
@@ -103,9 +100,8 @@ public class Tracker {
     public void replace(String id, Item item) {
         for (int index = 0; index < this.position; index++) {
             if (this.items[index].getId().equals(id)) {
-                this.items[index].setName(item.getName());
-                this.items[index].setDesc(item.getDesc());
-                this.items[index].setCreated(item.getCreated());
+                this.items[index] = item;
+                item.setId(id);
                 break;
             }
         }
