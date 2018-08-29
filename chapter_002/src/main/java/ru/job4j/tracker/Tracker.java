@@ -42,17 +42,19 @@ public class Tracker {
     /**
      * Метод, реализующий удаление заявки в хранилище по id.
      * @param id уникальный ключ заявки
+     * @return true если заявка удалена, иначе false.
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean deleted = false;
         for (int index = 0; index < this.position; index++) {
             if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                System.arraycopy(this.items, index + 1, items, index, position - index);
+                System.arraycopy(this.items, index + 1, items, index, position - index - 1);
                 position--;
+                deleted = true;
                 break;
             }
-        }
+        } return deleted;
     }
-
     /**
      * Метод, реализующий вывод всех созданных заявок.
      * @return все созданные заяки, без null элементов.
@@ -96,14 +98,17 @@ public class Tracker {
      * Метод, реализующий замену уже созданной заявки на другую.
      * @param id уникальный номер заявки, которую мы заменяем.
      * @param item заявкаЮ на которую мы заменяем
+     * @return true если заявка изменена, иначе false.
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean replaced = false;
         for (int index = 0; index < this.position; index++) {
             if (this.items[index].getId().equals(id)) {
                 this.items[index] = item;
                 item.setId(id);
+                replaced = true;
                 break;
             }
-        }
+        } return replaced;
     }
 }
