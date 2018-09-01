@@ -97,7 +97,7 @@ public class Tracker {
     /**
      * Метод, реализующий замену уже созданной заявки на другую.
      * @param id уникальный номер заявки, которую мы заменяем.
-     * @param item заявкаЮ на которую мы заменяем
+     * @param item заявка, на которую мы заменяем
      * @return true если заявка изменена, иначе false.
      */
     public boolean replace(String id, Item item) {

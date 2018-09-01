@@ -78,7 +78,11 @@ package ru.job4j.tracker;
             String desc = this.input.ask("Введите новое описание :");
             Item item = new Item(name, desc);
             this.tracker.replace(id, item);
-            System.out.println("------------ Новое имя заявки : " + item.getName() + " новое описание заявки: " + item.getDesc() + " -----------");
+            if (this.tracker.replace(id, item)) {
+                System.out.println("------------ Отредактированная заявка : " + item.toString() + " -----------");
+            } else {
+                System.out.println(" Заявка не найдена ");
+            }
         }
 
         /**
@@ -87,16 +91,27 @@ package ru.job4j.tracker;
         private void itemByName() {
             System.out.println("------------ Поиск заявки по имени --------------");
             String name = this.input.ask("Введите имя заявки :");
-            System.out.println("------------ Заявка с именем  " + name + " : " + this.tracker.findByName(name));
-        }
+            Item[] result = this.tracker.findByName(name);
+                if (result.length > 0) {
+                    for (int i = 0; i < result.length; i++) {
+                        System.out.println(" Заявка с именем " + name + " № " + (i + 1) + "" + result[i].toString());
+                    }
+                } else {
+                    System.out.println(" Заявка с таким именем не найдена. Введите корректное имя.");
+                }
+            }
 
-        /**
+         /**
          * Метод реализует поиск заявки по id.
          */
         private void itemById() {
             System.out.println("------------ Поиск заявки по ID --------------");
             String id = this.input.ask("Введите id заявки :");
-            System.out.println("------------ Заявка с id  " + id + " : " + this.tracker.findById(id));
+            if (this.tracker.findById(id) != null) {
+                System.out.println("------------ Заявка с id " + id + " : " + this.tracker.findById(id));
+            } else {
+                System.out.println("------------ Заявка с id " + id + " не найдена. Введите корректный номер.");
+            }
         }
 
         /**
@@ -106,7 +121,11 @@ package ru.job4j.tracker;
             System.out.println("------------ Удаление заявки --------------");
             String id = this.input.ask("Введите id заявки :");
             this.tracker.delete(id);
-            System.out.println("------------ Заявка с id : " + id + " удалена-----------");
+            if (this.tracker.delete(id)) {
+                System.out.println("------------ Заявка с id : " + id + " удалена-----------");
+            } else {
+                System.out.println(" Заявка не может быть удалена, потому что заявки с данным id не существует. Введите корректый id. ");
+            }
         }
 
         /**
@@ -118,7 +137,7 @@ package ru.job4j.tracker;
             String desc = this.input.ask("Введите описание заявки :");
             Item item = new Item(name, desc);
             this.tracker.add(item);
-            System.out.println("------------ Новая заявка с getId : " + item.getId() + " -----------");
+            System.out.println("------------ Новая заявка с Id : " + item.getId() + " создана  -----------");
         }
 
         private void showMenu() {
@@ -134,7 +153,6 @@ package ru.job4j.tracker;
 
         /**
          * Запускт программы.
-         *
          * @param args
          */
         public static void main(String[] args) {
