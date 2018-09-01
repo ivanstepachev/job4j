@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -32,6 +33,24 @@ public class TrackerTest {
         tracker.add(itemThree);
         tracker.add(itemFour);
         Item[] expect = {itemTwo};
+        Item[] result = tracker.findByName("test2");
+        assertThat(result, is(expect));
+    }
+
+    @Test
+    public void whenFindByNameNotSingle() {
+        Tracker tracker = new Tracker();
+        Item itemOne = new Item("test1", "TestDescription1", 111);
+        Item itemTwo = new Item("test2", "TestDescription2", 222);
+        Item itemThree = new Item("test3", "TestDescription3", 333);
+        Item itemFour = new Item("test4", "TestDescription4", 444);
+        Item itemFive = new Item("test2", "TestDescription4", 555);
+        tracker.add(itemOne);
+        tracker.add(itemTwo);
+        tracker.add(itemThree);
+        tracker.add(itemFour);
+        tracker.add(itemFive);
+        Item[] expect = {itemTwo, itemFive};
         Item[] result = tracker.findByName("test2");
         assertThat(result, is(expect));
     }

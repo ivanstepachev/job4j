@@ -22,6 +22,7 @@ public class Tracker {
 
     /**
      * Метод реализующий добавление заявки в хранилище
+     *
      * @param item новая заявка
      */
     public Item add(Item item) {
@@ -33,6 +34,7 @@ public class Tracker {
     /**
      * Метод генерирует уникальный ключ для заявки.
      * Так как у заявки нет уникальности полей, имени и описания. Для идентификации нам нужен уникальный ключ.
+     *
      * @return Уникальный ключ.
      */
     private String generateId() {
@@ -41,6 +43,7 @@ public class Tracker {
 
     /**
      * Метод, реализующий удаление заявки в хранилище по id.
+     *
      * @param id уникальный ключ заявки
      * @return true если заявка удалена, иначе false.
      */
@@ -53,18 +56,22 @@ public class Tracker {
                 deleted = true;
                 break;
             }
-        } return deleted;
+        }
+        return deleted;
     }
+
     /**
      * Метод, реализующий вывод всех созданных заявок.
+     *
      * @return все созданные заяки, без null элементов.
      */
     public Item[] findAll() {
-    return Arrays.copyOf(this.items, this.position);
+        return Arrays.copyOf(this.items, this.position);
     }
 
     /**
      * Метод, реализующий поиск заявки по имени.
+     *
      * @param key имя по которому осуществляем поиск
      * @return заявку, найденную по имени
      */
@@ -74,13 +81,14 @@ public class Tracker {
         for (int index = 0; index < position; index++) {
             if (items[index].getName() != null && items[index].getName().equals(key)) {
                 result[counter++] = items[index];
-              }
+            }
         }
         return Arrays.copyOf(result, counter);
     }
 
     /**
      * Метод, реализующий поиск заявки по уникальному номеру.
+     *
      * @param id уникальный номер, по которому осуществляем поиск
      * @return заявку, найденную по имени
      */
@@ -91,12 +99,14 @@ public class Tracker {
                 result = this.items[index];
                 break;
             }
-        } return result;
+        }
+        return result;
     }
 
     /**
      * Метод, реализующий замену уже созданной заявки на другую.
-     * @param id уникальный номер заявки, которую мы заменяем.
+     *
+     * @param id   уникальный номер заявки, которую мы заменяем.
      * @param item заявка, на которую мы заменяем
      * @return true если заявка изменена, иначе false.
      */
@@ -109,6 +119,7 @@ public class Tracker {
                 replaced = true;
                 break;
             }
-        } return replaced;
+        }
+        return replaced;
     }
 }
