@@ -1,12 +1,51 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 
 public class StartUITest {
+
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final StringBuilder menu = new StringBuilder()
+            .append("Меню.")
+            .append(System.lineSeparator())
+            .append("0. Создать новую заявку")
+            .append(System.lineSeparator())
+            .append("1. Показать все заявки")
+            .append(System.lineSeparator())
+            .append("2. Отредактировать заявку")
+            .append(System.lineSeparator())
+            .append("3. Удалить заявку")
+            .append(System.lineSeparator())
+            .append("4. Найти заявку по Id")
+            .append(System.lineSeparator())
+            .append("5. Найти заявку по имени")
+            .append(System.lineSeparator())
+            .append("6. Выйти из программы")
+            .append(System.lineSeparator());
+
+
+
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+
+    }
+
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
@@ -37,6 +76,70 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"3", itemSecond.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll(), is(trackerAfter.findAll()));
+    }
+
+    @Test
+    public void whenFindByNameInConsole(){
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("test1", "desc1"));
+        Input input = new StubInput(new String[]{"5", "test1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(item.getName(), is("test1"));
+    }
+
+    @Test
+    public void whenUserChooseShowAll(){
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1", "desc1");
+        tracker.add(item);
+        Input input = new StubInput(new String[]{"1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+        new String(this.out.toByteArray()),
+                is(new StringBuilder()
+                        .append(menu)
+                        .append("------------ Созданные заявки : " + tracker.findByName(item.getName()) + " ------------")
+                        .append(System.lineSeparator())
+                        .append(menu)
+                        .toString()));
+    }
+
+    @Test
+    public void whenUserChooseFindByName(){
+        Tracker tracker = new Tracker();
+        Item itemFirst = tracker.add(new Item("test1", "desc1"));
+        Item itemSecond = tracker.add(new Item("test1", "desc2"));
+        Input input = new StubInput(new String[]{"5", "test1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(this.out.toByteArray()),
+                is(new StringBuilder().append(menu)
+                        .append("------------ Поиск заявки по имени --------------")
+                        .append(System.lineSeparator())
+                        .append(" Заявка с именем test1 № 1 " + itemFirst.toString())
+                        .append(System.lineSeparator())
+                        .append(" Заявка с именем test1 № 2 " + itemSecond.toString())
+                        .append(System.lineSeparator())
+                        .append(menu)
+                        .toString()));
+    }
+
+    @Test
+    public void whenUserChooseFindById(){
+        Tracker tracker = new Tracker();
+        Item itemFirst = tracker.add(new Item("test1", "desc1"));
+        Item itemSecond = tracker.add(new Item("test2", "desc2"));
+        Input input = new StubInput(new String[]{"4", itemFirst.getId(), "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(this.out.toByteArray()),
+                is(new StringBuilder().append(menu)
+                        .append("------------ Поиск заявки по ID --------------")
+                        .append(System.lineSeparator())
+                        .append("------------ Заявка с id " + itemFirst.getId() + " : " + tracker.findById(itemFirst.getId()))
+                        .append(System.lineSeparator())
+                        .append(menu)
+                        .toString()));
     }
 
 }
