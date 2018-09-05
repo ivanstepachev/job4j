@@ -10,7 +10,11 @@ import java.io.ByteArrayOutputStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-
+/**
+ * @author Ivan Stepachev(mailto:i1nes@icloud.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class StartUITest {
 
     private final Tracker tracker = new Tracker();
