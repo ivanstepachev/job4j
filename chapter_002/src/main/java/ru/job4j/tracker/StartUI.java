@@ -67,9 +67,11 @@ public class StartUI {
      */
     private void showAllItems() {
         Item[] items = this.tracker.findAll();
-        for(Item item : items)
-        System.out.println("------------ Имя заявки : " + item.getName() + " ; Описаение заявки : " + item.getDesc() + " ------------");
+        for (Item item : items) {
+            System.out.println("------------ Имя заявки : " + item.getName() + " ; Описаение заявки : " + item.getDesc() + " ------------");
+        }
     }
+
 
     /**
      * Метод реализует редактирование заявки.
