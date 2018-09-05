@@ -65,7 +65,9 @@ public class StartUI {
      * Метод показывает все заявки.
      */
     private void showAllItems() {
-        System.out.println("------------ Созданные заявки : " + this.tracker.findAll() + " ------------");
+        Item[] items = this.tracker.findAll();
+        for(Item item : items)
+        System.out.println("------------ Имя заявки : " + item.getName() + " ; Описаение заявки : " + item.getDesc() + " ------------");
     }
 
     /**
@@ -93,7 +95,7 @@ public class StartUI {
         Item[] result = this.tracker.findByName(name);
         if (result.length > 0) {
             for (int i = 0; i < result.length; i++) {
-                System.out.println(" Заявка с именем " + name + " № " + (i + 1) + "" + result[i].toString());
+                System.out.println(" Заявка с именем " + name + " № " + (i + 1) + " " + result[i].toString());
             }
         } else {
             System.out.println(" Заявка с таким именем не найдена. Введите корректное имя.");

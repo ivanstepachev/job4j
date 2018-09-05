@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class StartUITest {
 
+    private final Tracker tracker = new Tracker();
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private final StringBuilder menu = new StringBuilder()
@@ -34,7 +35,6 @@ public class StartUITest {
             .append(System.lineSeparator());
 
 
-
     @Before
     public void loadOutput() {
         System.setOut(new PrintStream(this.out));
@@ -49,7 +49,6 @@ public class StartUITest {
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
@@ -57,7 +56,6 @@ public class StartUITest {
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
-        Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
         new StartUI(input, tracker).init();
@@ -66,7 +64,6 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem() {
-        Tracker tracker = new Tracker();
         Tracker trackerAfter = new Tracker();
         Item itemFirst = tracker.add(new Item("test name1", "desc1"));
         Item itemSecond = tracker.add(new Item("test name2", "desc2"));
@@ -79,8 +76,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenFindByNameInConsole(){
-        Tracker tracker = new Tracker();
+    public void whenFindByNameInConsole() {
         Item item = tracker.add(new Item("test1", "desc1"));
         Input input = new StubInput(new String[]{"5", "test1", "6"});
         new StartUI(input, tracker).init();
@@ -88,27 +84,34 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserChooseShowAll(){
-        Tracker tracker = new Tracker();
-        Item item = new Item("test1", "desc1");
-        tracker.add(item);
+    public void whenUserChooseShowAll() {
+        Item itemFirst = new Item("test1", "desc1");
+        Item itemSecond = new Item("test2", "desc2");
+        Item itemThird = new Item("test3", "desc3");
+        tracker.add(itemFirst);
+        tracker.add(itemSecond);
+        tracker.add(itemThird);
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
         assertThat(
-        new String(this.out.toByteArray()),
+                new String(this.out.toByteArray()),
                 is(new StringBuilder()
                         .append(menu)
-                        .append("------------ Созданные заявки : " + tracker.findByName(item.getName()) + " ------------")
+                        .append("------------ Имя заявки : " + itemFirst.getName() + " ; Описаение заявки : " + itemFirst.getDesc() + " ------------")
+                        .append(System.lineSeparator())
+                        .append("------------ Имя заявки : " + itemSecond.getName() + " ; Описаение заявки : " + itemSecond.getDesc() + " ------------")
+                        .append(System.lineSeparator())
+                        .append("------------ Имя заявки : " + itemThird.getName() + " ; Описаение заявки : " + itemThird.getDesc() + " ------------")
                         .append(System.lineSeparator())
                         .append(menu)
                         .toString()));
     }
 
     @Test
-    public void whenUserChooseFindByName(){
-        Tracker tracker = new Tracker();
+    public void whenUserChooseFindByName() {
         Item itemFirst = tracker.add(new Item("test1", "desc1"));
         Item itemSecond = tracker.add(new Item("test1", "desc2"));
+        Item itemThird = tracker.add(new Item("test3", "desc3"));
         Input input = new StubInput(new String[]{"5", "test1", "6"});
         new StartUI(input, tracker).init();
         assertThat(
@@ -125,8 +128,25 @@ public class StartUITest {
     }
 
     @Test
-    public void whenUserChooseFindById(){
-        Tracker tracker = new Tracker();
+    public void whenUserChooseFindByNameButNoCoincidence() {
+        Item itemFirst = tracker.add(new Item("test1", "desc1"));
+        Item itemSecond = tracker.add(new Item("test2", "desc2"));
+        Item itemThird = tracker.add(new Item("test3", "desc3"));
+        Input input = new StubInput(new String[]{"5", "test4", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(this.out.toByteArray()),
+                is(new StringBuilder().append(menu)
+                        .append("------------ Поиск заявки по имени --------------")
+                        .append(System.lineSeparator())
+                        .append(" Заявка с таким именем не найдена. Введите корректное имя.")
+                        .append(System.lineSeparator())
+                        .append(menu)
+                        .toString()));
+    }
+
+    @Test
+    public void whenUserChooseFindById() {
         Item itemFirst = tracker.add(new Item("test1", "desc1"));
         Item itemSecond = tracker.add(new Item("test2", "desc2"));
         Input input = new StubInput(new String[]{"4", itemFirst.getId(), "6"});
@@ -141,5 +161,4 @@ public class StartUITest {
                         .append(menu)
                         .toString()));
     }
-
 }
