@@ -24,3 +24,7 @@ public class ArrayDuplicate {
         return Arrays.copyOf(array, unique - counter);
     }
 }
+
+
+
+

@@ -26,7 +26,6 @@ public class Max {
      * @return Наибольшее число.
      */
     public int maxOneOfThree(int first, int second, int third) {
-        int temp = this.maxOneOfTwo(first, second);
-        return this.maxOneOfTwo(temp, third);
+        return this.maxOneOfTwo(this.maxOneOfTwo(first, second), third);
     }
 }
