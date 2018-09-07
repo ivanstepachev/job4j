@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
  */
 public class StartUITest {
 
-    private final Tracker tracker = new Tracker();
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private final StringBuilder menu = new StringBuilder()
@@ -50,6 +49,7 @@ public class StartUITest {
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
+        Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
@@ -57,6 +57,7 @@ public class StartUITest {
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
+        Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"});
         new StartUI(input, tracker).init();
@@ -65,6 +66,7 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem() {
+        Tracker tracker = new Tracker();
         Tracker trackerAfter = new Tracker();
         Item itemFirst = tracker.add(new Item("test name1", "desc1"));
         Item itemSecond = tracker.add(new Item("test name2", "desc2"));
@@ -78,6 +80,7 @@ public class StartUITest {
 
     @Test
     public void whenFindByNameInConsole() {
+        Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test1", "desc1"));
         Input input = new StubInput(new String[]{"5", "test1", "y"});
         new StartUI(input, tracker).init();
@@ -86,6 +89,7 @@ public class StartUITest {
 
     @Test
     public void whenUserChooseShowAll() {
+        Tracker tracker = new Tracker();
         Item itemFirst = new Item("test1", "desc1");
         Item itemSecond = new Item("test2", "desc2");
         Item itemThird = new Item("test3", "desc3");
@@ -109,6 +113,7 @@ public class StartUITest {
 
     @Test
     public void whenUserChooseFindByName() {
+        Tracker tracker = new Tracker();
         Item itemFirst = tracker.add(new Item("test1", "desc1"));
         Item itemSecond = tracker.add(new Item("test1", "desc2"));
         Item itemThird = tracker.add(new Item("test3", "desc3"));
@@ -128,6 +133,7 @@ public class StartUITest {
 
     @Test
     public void whenUserChooseFindByNameButNoCoincidence() {
+        Tracker tracker = new Tracker();
         Item itemFirst = tracker.add(new Item("test1", "desc1"));
         Item itemSecond = tracker.add(new Item("test2", "desc2"));
         Item itemThird = tracker.add(new Item("test3", "desc3"));
@@ -145,6 +151,7 @@ public class StartUITest {
 
     @Test
     public void whenUserChooseFindById() {
+        Tracker tracker = new Tracker();
         Item itemFirst = tracker.add(new Item("test1", "desc1"));
         Item itemSecond = tracker.add(new Item("test2", "desc2"));
         Input input = new StubInput(new String[]{"4", itemFirst.getId(), "y"});

@@ -38,13 +38,13 @@ public class MenuTracker {
      * Метод заполняет массив
      */
     public void fillActions() {
-        this.actions.add(new AddItem());
-        this.actions.add(new ShowItems());
-        this.actions.add(new MenuTracker.EditItem());
-        this.actions.add(new MenuTracker.DeleteItem());
-        this.actions.add(new FindItemById());
-        this.actions.add(new FindItemByName());
-        this.actions.add(new ExitProgram());
+        this.actions.add(new AddItem(0, "Создать новую заявку"));
+        this.actions.add(new ShowItems(1, "Показать все заявки"));
+        this.actions.add(new MenuTracker.EditItem(2, "Отредактировать заявку"));
+        this.actions.add(new MenuTracker.DeleteItem(3, "Удалить заявку"));
+        this.actions.add(new FindItemById(4, "Найти заявку по Id"));
+        this.actions.add(new FindItemByName(5, "Найти заявку по имени"));
+        this.actions.add(new ExitProgram(6, "Выйти из программы"));
     }
     /**
      * Метод в зависимости от указанного ключа, выполняет соответсующие действия
@@ -69,9 +69,17 @@ public class MenuTracker {
      */
     public class AddItem implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public AddItem(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 0;
+            return keyNumber;
         }
 
         @Override
@@ -86,7 +94,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Создать новую заявку";
+            return menuOption;
         }
     }
     /**
@@ -94,9 +102,17 @@ public class MenuTracker {
      */
     public class ShowItems implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public ShowItems(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 1;
+            return keyNumber;
         }
 
         @Override
@@ -109,7 +125,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Показать все заявки";
+            return menuOption;
         }
     }
     /**
@@ -117,9 +133,17 @@ public class MenuTracker {
      */
     public static class EditItem implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public EditItem(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 2;
+            return keyNumber;
         }
 
         @Override
@@ -138,7 +162,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Отредактировать заявку";
+            return menuOption;
         }
     }
     /**
@@ -146,9 +170,17 @@ public class MenuTracker {
      */
     public static class DeleteItem implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public DeleteItem(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 3;
+            return keyNumber;
         }
 
         @Override
@@ -164,7 +196,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Удалить заявку";
+            return menuOption;
         }
     }
     /**
@@ -172,9 +204,17 @@ public class MenuTracker {
      */
     public class FindItemById implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public FindItemById(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 4;
+            return keyNumber;
         }
 
         @Override
@@ -190,7 +230,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Найти заявку по Id";
+            return menuOption;
         }
     }
     /**
@@ -198,9 +238,17 @@ public class MenuTracker {
      */
     public class FindItemByName implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public FindItemByName(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 5;
+            return keyNumber;
         }
 
         @Override
@@ -219,7 +267,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Найти заявку по имени";
+            return menuOption;
         }
     }
     /**
@@ -227,9 +275,17 @@ public class MenuTracker {
      */
     public class ExitProgram implements UserAction {
 
+        private int keyNumber;
+        private String menuOption;
+
+        public ExitProgram(int keyNumber, String menuOption) {
+            this.keyNumber = keyNumber;
+            this.menuOption = menuOption;
+        }
+
         @Override
         public int key() {
-            return 6;
+            return keyNumber;
         }
 
         @Override
@@ -240,7 +296,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "Выйти из программы";
+            return menuOption;
         }
     }
 
