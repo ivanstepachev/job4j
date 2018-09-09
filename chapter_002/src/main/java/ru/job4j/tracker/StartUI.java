@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
-import java.util.List;
 /**
  * @author Ivan Stepachev(mailto:i1nes@icloud.com)
  * @version $Id$
@@ -16,6 +14,7 @@ public class StartUI {
      * Хранилище заявок.
      */
     private final Tracker tracker;
+
     /**
      * Конструтор инициализирующий поля.
      *
@@ -26,27 +25,25 @@ public class StartUI {
         this.input = input;
         this.tracker = tracker;
     }
+
     /**
      * Основой цикл программы.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        List<Integer> range = new ArrayList<>();
         menu.fillActions();
-        for (int i = 0; i < menu.getActionLength(); i++) {
-            range.add(i);
-        }
         do {
             menu.show();
-            menu.select(Integer.valueOf(input.ask("Выберете пункт меню:")));
+            menu.select(input.ask("Выберете пункт меню:", menu.rangesLength()));
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
+
     /**
      * Запускт программы.
      *
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

@@ -3,7 +3,16 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ivan Stepachev(mailto:i1nes@icloud.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class MenuTracker {
+    /**
+     * Хранит диапазон значений меню.
+     */
+    private List<Integer> ranges = new ArrayList<>();
     /**
      * @param хранит ссылку на объект
      */
@@ -16,6 +25,7 @@ public class MenuTracker {
      * @param хранит ссылку на массив типа UserAction.
      */
     private List<UserAction> actions = new ArrayList<>();
+
     /**
      * Конструктор
      *
@@ -26,6 +36,19 @@ public class MenuTracker {
         this.input = input;
         this.tracker = tracker;
     }
+
+    /**
+     * Метод реализующий увеличение диапазона значений меню
+     *
+     * @return коллекция значений меню
+     */
+    public List<Integer> rangesLength() {
+        for (int i = 0; i < this.getActionLength(); i++) {
+            ranges.add(i);
+        }
+        return ranges;
+    }
+
     /**
      * Метод для получения массива меню
      *
@@ -34,6 +57,7 @@ public class MenuTracker {
     public int getActionLength() {
         return this.actions.size();
     }
+
     /**
      * Метод заполняет массив
      */
@@ -46,6 +70,7 @@ public class MenuTracker {
         this.actions.add(new FindItemByName(5, "Найти заявку по имени"));
         this.actions.add(new ExitProgram(6, "Выйти из программы"));
     }
+
     /**
      * Метод в зависимости от указанного ключа, выполняет соответсующие действия
      *
@@ -54,6 +79,7 @@ public class MenuTracker {
     public void select(int key) {
         this.actions.get(key).execute(this.input, this.tracker);
     }
+
     /**
      * Метод выводит на экран меню
      */
@@ -64,6 +90,7 @@ public class MenuTracker {
             }
         }
     }
+
     /**
      * Класс, реализующий добавление заявки
      */
@@ -97,6 +124,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий вызов всех заявок
      */
@@ -128,6 +156,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий редактирование заявки
      */
@@ -165,6 +194,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий удаление заявки
      */
@@ -199,6 +229,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий поиск по ID
      */
@@ -233,6 +264,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий поиск по имени
      */
@@ -270,6 +302,7 @@ public class MenuTracker {
             return menuOption;
         }
     }
+
     /**
      * Класс, реализующий выход из программы
      */
@@ -291,7 +324,6 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Выход из программы --------------");
-            System.exit(0);
         }
 
         @Override
