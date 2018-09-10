@@ -7,7 +7,13 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
+
+    private final Input input;
+
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
     /**
      * Метод, реализующий выброс исключения на выход из диапазона значений меню или ввода неккоректного символа.
      *
@@ -21,7 +27,7 @@ public class ValidateInput extends ConsoleInput {
         int value = -1;
         do {
             try {
-                value = super.ask(question, range);
+                value = this.input.ask(question, range);
                 invalid = false;
             } catch (MenuOutException moe) {
                 System.out.println("Введите корректный номер меню. ");
@@ -30,5 +36,10 @@ public class ValidateInput extends ConsoleInput {
             }
         } while (invalid);
         return value;
+    }
+
+    @Override
+    public String ask(String question) {
+        return this.input.ask(question);
     }
 }

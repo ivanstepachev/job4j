@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -45,6 +47,22 @@ public class StartUITest {
     public void backOutput() {
         System.setOut(this.stdout);
 
+    }
+
+    @Test
+    public void whenInvalidInput() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[]{"invalid", "1"})
+        );
+        List<Integer> range = new ArrayList<>();
+        range.add(1);
+        input.ask("Enter", range);
+        assertThat(
+                this.out.toString(),
+                is(
+                        String.format("Введите значение повторно. %n")
+                )
+        );
     }
 
     @Test
