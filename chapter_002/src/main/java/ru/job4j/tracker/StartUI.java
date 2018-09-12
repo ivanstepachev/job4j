@@ -6,6 +6,8 @@ package ru.job4j.tracker;
  * @since 0.1
  */
 public class StartUI {
+
+    private boolean working = true;
     /**
      * Константа меню для добавления новой заявки.
      */
@@ -31,11 +33,15 @@ public class StartUI {
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        menu.fillActions(this);
         do {
             menu.show();
             menu.select(input.ask("Выберете пункт меню:", menu.rangesLength()));
-        } while (!"y".equals(this.input.ask("Exit?(y): ")));
+        } while (this.working);
+    }
+
+    public void stop() {
+        this.working = false;
     }
 
     /**
