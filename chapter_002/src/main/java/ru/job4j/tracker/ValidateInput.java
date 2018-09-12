@@ -23,19 +23,11 @@ public class ValidateInput implements Input {
      */
     @Override
     public int ask(String question, List<Integer> range) {
-        boolean invalid = true;
-        int value = -1;
-        do {
-            try {
-                value = this.input.ask(question, range);
-                invalid = false;
-            } catch (MenuOutException moe) {
-                System.out.println("Введите корректный номер меню. ");
-            } catch (NumberFormatException nfe) {
-                System.out.println("Введите значение повторно. ");
-            }
-        } while (invalid);
-        return value;
+        int key = this.input.ask(question, range);
+        if (!range.contains(key)) {
+            throw new MenuOutException("Введите корректный номер меню. ");
+        }
+        return key;
     }
 
     @Override
