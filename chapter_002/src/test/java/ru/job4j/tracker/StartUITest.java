@@ -50,22 +50,6 @@ public class StartUITest {
     }
 
     @Test
-    public void whenInvalidInput() {
-        ValidateInput input = new ValidateInput(
-                new StubInput(new String[]{"invalid", "1"})
-        );
-        List<Integer> range = new ArrayList<>();
-        range.add(1);
-        input.ask("Enter", range);
-        assertThat(
-                this.out.toString(),
-                is(
-                        String.format("Введите значение повторно. %n")
-                )
-        );
-    }
-
-    @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});

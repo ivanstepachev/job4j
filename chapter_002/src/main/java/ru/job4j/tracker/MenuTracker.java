@@ -94,19 +94,10 @@ public class MenuTracker {
     /**
      * Класс, реализующий добавление заявки
      */
-    public class AddItem implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public class AddItem extends BaseAction {
 
         public AddItem(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -118,29 +109,15 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Новая заявка с Id : " + item.getId() + " создана  -----------");
         }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
     /**
      * Класс, реализующий вызов всех заявок
      */
-    public class ShowItems implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public class ShowItems extends BaseAction {
 
         public ShowItems(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -150,29 +127,15 @@ public class MenuTracker {
                 System.out.println("------------ Имя заявки : " + item.getName() + " ; Описаение заявки : " + item.getDesc() + " ------------");
             }
         }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
     /**
      * Класс, реализующий редактирование заявки
      */
-    public static class EditItem implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public static class EditItem extends BaseAction {
 
         public EditItem(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -189,28 +152,15 @@ public class MenuTracker {
             }
         }
 
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
     /**
      * Класс, реализующий удаление заявки
      */
-    public static class DeleteItem implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public static class DeleteItem extends BaseAction {
 
         public DeleteItem(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -223,29 +173,15 @@ public class MenuTracker {
                 System.out.println(" Заявка не может быть удалена, потому что заявки с данным id не существует. Введите корректый id. ");
             }
         }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
     /**
      * Класс, реализующий поиск по ID
      */
-    public class FindItemById implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public class FindItemById extends BaseAction {
 
         public FindItemById(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -258,29 +194,15 @@ public class MenuTracker {
                 System.out.println("------------ Заявка с id " + id + " не найдена. Введите корректный номер.");
             }
         }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
     /**
      * Класс, реализующий поиск по имени
      */
-    public class FindItemByName implements UserAction {
-
-        private int keyNumber;
-        private String menuOption;
+    public class FindItemByName extends BaseAction {
 
         public FindItemByName(int keyNumber, String menuOption) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-        }
-
-        @Override
-        public int key() {
-            return keyNumber;
+            super(keyNumber, menuOption);
         }
 
         @Override
@@ -296,45 +218,27 @@ public class MenuTracker {
                 System.out.println(" Заявка с таким именем не найдена. Введите корректное имя.");
             }
         }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
     }
 
-    /**
-     * Класс, реализующий выход из программы
-     */
-    public class ExitProgram implements UserAction {
+        /**
+         * Класс, реализующий выход из программы
+         */
+        public class ExitProgram extends BaseAction {
 
-        private StartUI startUI;
+            private StartUI startUI;
 
-        private int keyNumber;
-        private String menuOption;
+            public ExitProgram(int keyNumber, String menuOption, StartUI startUI) {
+                super(keyNumber, menuOption);
+                this.startUI = startUI;
+            }
 
-        public ExitProgram(int keyNumber, String menuOption, StartUI startUI) {
-            this.keyNumber = keyNumber;
-            this.menuOption = menuOption;
-            this.startUI = startUI;
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                System.out.println("------------ Выход из программы --------------");
+                this.startUI.stop();
+            }
+
         }
-
-        @Override
-        public int key() {
-            return keyNumber;
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Выход из программы --------------");
-            this.startUI.stop();
-        }
-
-        @Override
-        public String info() {
-            return menuOption;
-        }
-    }
 
 }
 
