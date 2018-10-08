@@ -29,10 +29,10 @@ public class BishopBlack implements Figure {
         Cell[] steps = new Cell[Math.abs(source.x - dest.x)];
         int deltaX;
         int deltaY;
-        for (int index = 0; index < steps.length; index++) {
+        for (int index = 1; index <= steps.length; index++) {
             deltaX = dest.x > source.x ? source.x + index : source.x - index;
             deltaY = dest.y > source.y ? source.y + index : source.y - index;
-            steps[index] = Cell.find(deltaX, deltaY);
+            steps[index - 1] = Cell.find(deltaX, deltaY);
         }
 
         return steps;
@@ -42,6 +42,4 @@ public class BishopBlack implements Figure {
     public Figure copy(Cell dest) {
         return new BishopBlack(dest);
     }
-
-
 }
