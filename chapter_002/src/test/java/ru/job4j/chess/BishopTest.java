@@ -6,7 +6,6 @@ import org.junit.Test;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.black.BishopBlack;
 
-
 public class BishopTest {
 
     @Test
@@ -24,4 +23,33 @@ public class BishopTest {
         Cell[] expect = {Cell.E7, Cell.D6, Cell.C5, Cell.B4};
         Assert.assertThat(result, Is.is(expect));
     }
+
+    @Test
+    public void whenBlackBishopGoWrongVwrtical() throws ImpossibleMoveException {
+        BishopBlack bishopBlack = new BishopBlack(Cell.F8);
+        boolean result = false;
+        try {
+            Cell[] way = bishopBlack.way(Cell.F8, Cell.F2);
+        } catch (ImpossibleMoveException e) {
+            System.out.println(e.getMessage());
+            result = true;
+        }
+        Assert.assertThat(result, Is.is(true));
+
+    }
+
+    @Test
+    public void whenBlackBishopGoWrongHorisontal() throws ImpossibleMoveException {
+        BishopBlack bishopBlack = new BishopBlack(Cell.F8);
+        boolean result = false;
+        try {
+            Cell[] way = bishopBlack.way(Cell.F8, Cell.A8);
+        } catch (ImpossibleMoveException e) {
+            System.out.println(e.getMessage());
+            result = true;
+        }
+        Assert.assertThat(result, Is.is(true));
+
+    }
+
 }
