@@ -25,6 +25,23 @@ public class LogicTest {
     }
 
     @Test
+    public void whenVerticalWinWhy() {
+        Logic logic = new Logic(5) {
+            @Override
+            public int[][] convert() {
+                return new int[][]{
+                        {0, 0, 1, 0, 0},
+                        {0, 1, 0, 0, 0},
+                        {0, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0},
+                        {0, 0, 1, 0, 0},
+                };
+            }
+        };
+        assertThat(logic.isWin(), is(true));
+    }
+
+    @Test
     public void whenVerticalWin6on6() {
         Logic logic = new Logic(6) {
             @Override
