@@ -6,7 +6,7 @@ import ru.job4j.puzzle.firuges.Figure;
 /**
  * @author Ivan Stepachev (i1nes@icloud.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.1
  */
 public class Logic {
     private final int size;
