@@ -38,7 +38,7 @@ public class LogicTest {
                 };
             }
         };
-        assertThat(logic.isWin(), is(true));
+        assertThat(logic.isWin(), is(false));
     }
 
     @Test
