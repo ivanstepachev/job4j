@@ -1,11 +1,11 @@
 package ru.job4j.chess.firuges.white;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 /**
- *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ivan Stepachev (i1nes@icloud.com)
  * @version $Id$
  * @since 0.1
  */
@@ -23,7 +23,19 @@ public class BishopWhite implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] {dest };
+        if (Math.abs(source.x - dest.x) != Math.abs(source.y - dest.y)) {
+            throw new ImpossibleMoveException("Ход невозможен");
+        }
+        Cell[] steps = new Cell[Math.abs(source.x - dest.x)];
+        int deltaX;
+        int deltaY;
+        for (int index = 1; index <= steps.length; index++) {
+            deltaX = dest.x > source.x ? source.x + index : source.x - index;
+            deltaY = dest.y > source.y ? source.y + index : source.y - index;
+            steps[index - 1] = Cell.find(deltaX, deltaY);
+        }
+
+        return steps;
     }
 
     @Override

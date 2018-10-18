@@ -1,15 +1,14 @@
 package ru.job4j.chess.firuges.white;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 /**
- *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ivan Stepachev (i1nes@icloud.com)
  * @version $Id$
  * @since 0.1
- */
-public class KingWhite implements Figure {
+ */ic class KingWhite implements Figure {
     private final Cell position;
 
     public KingWhite(final Cell position) {
@@ -23,7 +22,21 @@ public class KingWhite implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] {dest };
+        Cell[] steps;
+        if ((dest.x == source.x && source.y + 1 == dest.y) ||
+                (dest.x == source.x && source.y - 1 == dest.y) ||
+                (dest.x == source.x + 1 && source.y == dest.y) ||
+                (dest.x == source.x - 1 && source.y == dest.y) ||
+                (dest.x == source.x + 1 && source.y + 1 == dest.y) ||
+                (dest.x == source.x + 1 && source.y - 1 == dest.y) ||
+                (dest.x == source.x - 1 && source.y + 1 == dest.y) ||
+                (dest.x == source.x - 1 && source.y - 1 == dest.y)
+        ) {
+            steps = new Cell[] {dest };
+        } else {
+            throw new ImpossibleMoveException("Ход невозможен");
+        }
+        return steps;
     }
 
     @Override

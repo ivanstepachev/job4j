@@ -4,9 +4,7 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 /**
- * //TODO add comments.
- *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ivan Stepachev (i1nes@icloud.com)
  * @version $Id$
  * @since 0.1
  */
@@ -24,7 +22,11 @@ public class PawnWhite implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] {dest };
+        Cell[] steps = new Cell[0];
+        if (source.y == dest.y - 1 && source.x == dest.x) {
+            steps = new Cell[] {dest };
+        }
+        return steps;
     }
 
     @Override
