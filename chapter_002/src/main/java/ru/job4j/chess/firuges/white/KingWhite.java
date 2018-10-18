@@ -8,7 +8,7 @@ import ru.job4j.chess.firuges.Figure;
  * @author Ivan Stepachev (i1nes@icloud.com)
  * @version $Id$
  * @since 0.1
- */ic class KingWhite implements Figure {
+ */public class KingWhite implements Figure {
     private final Cell position;
 
     public KingWhite(final Cell position) {
