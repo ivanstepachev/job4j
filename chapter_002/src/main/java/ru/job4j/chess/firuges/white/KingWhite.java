@@ -23,16 +23,15 @@ import ru.job4j.chess.firuges.Figure;
     @Override
     public Cell[] way(Cell source, Cell dest) {
         Cell[] steps;
-        if ((dest.x == source.x && source.y + 1 == dest.y) ||
-                (dest.x == source.x && source.y - 1 == dest.y) ||
-                (dest.x == source.x + 1 && source.y == dest.y) ||
-                (dest.x == source.x - 1 && source.y == dest.y) ||
-                (dest.x == source.x + 1 && source.y + 1 == dest.y) ||
-                (dest.x == source.x + 1 && source.y - 1 == dest.y) ||
-                (dest.x == source.x - 1 && source.y + 1 == dest.y) ||
-                (dest.x == source.x - 1 && source.y - 1 == dest.y)
-        ) {
-            steps = new Cell[] {dest };
+        if ((dest.x == source.x && source.y + 1 == dest.y)
+                || (dest.x == source.x && source.y - 1 == dest.y)
+                || (dest.x == source.x + 1 && source.y == dest.y)
+                || (dest.x == source.x - 1 && source.y == dest.y)
+                || (dest.x == source.x + 1 && source.y + 1 == dest.y)
+                || (dest.x == source.x + 1 && source.y - 1 == dest.y)
+                || (dest.x == source.x - 1 && source.y + 1 == dest.y)
+                || (dest.x == source.x - 1 && source.y - 1 == dest.y)) {
+            steps = new Cell[]{dest};
         } else {
             throw new ImpossibleMoveException("Ход невозможен");
         }
